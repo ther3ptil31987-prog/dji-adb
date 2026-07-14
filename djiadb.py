@@ -10,7 +10,7 @@ PRODUCT_ID = 0x1021
 INTERFACE = 2
 EP_OUT = 0x03
 EP_IN = 0x84
-TIMEOUT = 5000
+TIMEOUT = 15000
 
 A_CNXN, A_AUTH, A_OPEN, A_OKAY, A_WRTE, A_CLSE = (
     struct.unpack('<I', b'CNXN')[0], struct.unpack('<I', b'AUTH')[0],
@@ -141,13 +141,4 @@ if __name__ == "__main__":
     finally:
         h.releaseInterface(INTERFACE)
         h.close()
-
-#Set dji app as home
-#cmd package set-home-activity dji.go.v5/com.dji.component.application.activity.DJIPureLaunchActivity
-
-#Launcher3
-#pm enable com.android.launcher3
-#run once
-#am start -a android.intent.action.MAIN -c android.intent.category.HOME
-#set home
-#cmd package set-home-activity com.android.launcher3/.uioverrides.QuickstepLauncher
+        
