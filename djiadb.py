@@ -5,11 +5,22 @@ from adb_shell.auth.sign_pythonrsa import PythonRSASigner
 from adb_shell.auth.keygen import keygen
 
 KEY_PATH = os.path.expanduser("~/.android/adbkey")
+
+# USB descriptor values for the DJI RC2 / KATMAI-IDP device.
+#
+# From listadb.py:
+# - Device ID: 2ca3:1021
+# - Interface 2: Class=0xff Sub=0x42 Proto=0x01
+#   - Endpoint 0x03: bulk OUT
+#   - Endpoint 0x84: bulk IN
+#
+# These values select the ADB-capable interface and its data endpoints.
 VENDOR_ID = 0x2ca3
 PRODUCT_ID = 0x1021
 INTERFACE = 2
 EP_OUT = 0x03
 EP_IN = 0x84
+# USB bulk transfers can take a while while the RC2 responds to ADB traffic.
 TIMEOUT = 15000
 
 A_CNXN, A_AUTH, A_OPEN, A_OKAY, A_WRTE, A_CLSE = (

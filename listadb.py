@@ -1,9 +1,13 @@
 import usb1
 
 VENDOR_ID = None  # fill in after first run if you know it, otherwise leave None to scan all
+VENDOR_ID = 0x2ca3  # DJI
 
 with usb1.USBContext() as ctx:
     for device in ctx.getDeviceList(skip_on_error=True):
+        if VENDOR_ID is not None and device.getVendorID() != VENDOR_ID:
+            continue
+
         try:
             manufacturer = device.getManufacturer()
             product = device.getProduct()

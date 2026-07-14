@@ -7,6 +7,31 @@ This repository documents how to get an ADB root shell on the DJI RC2.
 - `adb-shell`
 - `libusb1`
 
+## Device Mapping
+
+The script targets the ADB-capable USB interface exposed by the DJI RC2 / KATMAI-IDP device.
+
+Observed `listadb.py` output:
+
+```text
+Device: 2ca3:1021  DJI / KATMAI-IDP _SN:
+	Interface 0, AltSetting 0: Class=0xff Sub=0x43 Proto=0x01
+		Endpoint 0x01  Attr=0x02  MaxPacket=512
+		Endpoint 0x81  Attr=0x02  MaxPacket=512
+	Interface 1, AltSetting 0: Class=0x06 Sub=0x01 Proto=0x01
+		Endpoint 0x82  Attr=0x02  MaxPacket=512
+		Endpoint 0x02  Attr=0x02  MaxPacket=512
+		Endpoint 0x83  Attr=0x03  MaxPacket=28
+	Interface 2, AltSetting 0: Class=0xff Sub=0x42 Proto=0x01
+		Endpoint 0x03  Attr=0x02  MaxPacket=512
+		Endpoint 0x84  Attr=0x02  MaxPacket=512
+```
+
+- `VENDOR_ID = 0x2ca3` and `PRODUCT_ID = 0x1021` identify the DJI RC2 / KATMAI-IDP device.
+- `INTERFACE = 2` selects interface 2, which is the ADB-capable interface (`Class=0xff Sub=0x42 Proto=0x01`).
+- `EP_OUT = 0x03` is the bulk OUT endpoint on interface 2.
+- `EP_IN = 0x84` is the bulk IN endpoint on interface 2.
+
 ## Usage
 
 1. Connect the RC2 via USB.
